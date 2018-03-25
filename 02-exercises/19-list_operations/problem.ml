@@ -33,17 +33,33 @@ let my_ints : int list =
 let double_my_ints ints : int list =
   List.map ~f:(fun x -> x * 2) ints
 
-let () = assert (double_my_ints my_ints = [ 2; 4; 6; 8; 10 ])
+<<<<<<< HEAD
+let () = assert ([%compare.equal : int list] (double_my_ints my_ints) [ 2; 4; 6; 8; 10 ])
+=======
+let () =
+  assert
+    ([%compare.equal: int list]
+       (double_my_ints my_ints)
+       [ 2; 4; 6; 8; 10 ])
+>>>>>>> e777e1b9b8c50671e7c99d3f504fd51be962e08a
 
 let my_strings ints : string list =
   List.map ~f:Int.to_string ints
 
-let () = assert (my_strings my_ints = [ "1"; "2"; "3"; "4"; "5" ])
+<<<<<<< HEAD
+let () = assert ([%compare.equal : string list] (my_strings my_ints) [ "1"; "2"; "3"; "4"; "5" ])
+=======
+let () =
+  assert
+    ([%compare.equal: string list]
+       (my_strings my_ints)
+       [ "1"; "2"; "3"; "4"; "5" ])
+>>>>>>> e777e1b9b8c50671e7c99d3f504fd51be962e08a
 
 (* Exercise: implement the value [my_new_ints], which is obtained by adding 1 to each
    element of [my_ints] *)
 let my_new_ints ints =
-  failwith "For you to implement"
+  List.map ~f:(fun x -> x + 1) ints
 
 (* If the function you want to perform on each element of your list is one that returns
    [unit], meaning that all it does is perform some side-effect (like [printf]),
@@ -85,7 +101,7 @@ let () = assert (sum_of_my_ints my_ints = 15)
    even *)
 
 let num_even_ints ints =
-  failwith "For you to implement"
+  List.fold_left ~f:(fun total my_int -> if (Int.rem my_int 2 = 0) then total + 1 else total) ~init:0 ints
 
 (* Here's one more example of a useful list function: [List.find]:
 

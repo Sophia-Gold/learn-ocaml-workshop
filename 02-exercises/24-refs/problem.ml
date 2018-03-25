@@ -19,10 +19,18 @@ let () =
    and maximum values seen so far.
 *)
 let min_and_max lst =
-  failwith "For you to implement"
+  let min = ref Int.max_value in
+  let max = ref 0 in
+  let rec min_and_max_ min max lst =
+    match lst with
+    | [] -> (!min, !max)
+    | (h :: tl) -> if h < !min then min := h;
+                   if h > !max then max := h;
+                   min_and_max_ min max tl
+  in min_and_max_ min max lst
 
 let%test "Testing min_and_max..." =
-  [%compare.equal: int*int] (min_and_max [5;9;2;4;3]) (2,9) 
+  [%compare.equal: int*int] (min_and_max [5;9;2;4;3]) (2,9)
 ;;
 
 let%test "Testing min_and_max..." =

@@ -42,7 +42,11 @@ let divide ~dividend ~divisor = dividend / divisor
 (* Now implement [modulo ~dividend ~divisor] using our version of divide with labelled
    arguments (e.g. [modulo ~dividend:7 ~divisor:2] should equal 1) *)
 (* TODO *)
-let modulo ~dividend ~divisor = failwith "For you to implement"
+let rec modulo ~dividend ~divisor =
+  let quotient = divide dividend divisor in
+  match (quotient < divisor) with
+  | true  -> divisor - quotient
+  | false -> 0
 
 let%test "Testing modulo..." =
   Int.(=) 2 (modulo ~dividend:17 ~divisor:5)

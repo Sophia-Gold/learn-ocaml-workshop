@@ -22,7 +22,9 @@ let rec length lst =
 
 (* Write a function to add up the elements of a list by matching on it. *)
 let rec sum lst =
-  failwith "For you to implement"
+  match lst with
+  | [] -> 0
+  | h  :: tl -> h + (sum tl)
 
 (* The signature for the append operator is
    val (@) : 'a list -> 'a list -> 'a list

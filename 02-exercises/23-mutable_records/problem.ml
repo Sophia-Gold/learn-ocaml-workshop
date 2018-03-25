@@ -12,7 +12,9 @@ type color =
   | Red
   | Yellow
   | Green
-  (* You'll get an error about Unbound value compare_color. This is because we
+[@@deriving compare]
+
+(* You'll get an error about Unbound value compare_color. This is because we
      used the [compare] ppx for [stoplight] below, which has a [color] as one of
      its fields, but we didn't have [compare] on [color].
 
@@ -40,7 +42,10 @@ let set_color stoplight color =
    Red, and Red to Green, we can just write a function to advance the color
    of the light without taking an input color. *)
 let advance_color stoplight =
-  failwith "For you to implement"
+  match stoplight.color with
+  | Green -> stoplight.color <- Yellow
+  | Yellow -> stoplight.color <- Red
+  | Red -> stoplight.color <- Green
 
 module For_testing = struct
   let test_ex_red : stoplight = { location = "" ; color = Red }
@@ -69,4 +74,4 @@ module For_testing = struct
     (advance_color test_ex_red);
     [%compare.equal: stoplight] test_ex_red' test_ex_red
   ;;
-end  
+end

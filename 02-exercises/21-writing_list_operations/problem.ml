@@ -56,14 +56,27 @@ module My_list : sig
 
 end = struct
 
-  (* TODO *)
-  let map f lst = failwith "For you to implement"
+  let map f lst =
+    let rec map_ acc lst_ =
+      match lst_ with
+      | [] -> List.rev acc
+      | (h :: tl) -> map_ (f h :: acc) tl
+    in map_ [] lst
 
-  (* TODO *)
-  let iter f lst = failwith "For you to implement"
+  let rec iter f lst =
+    match lst with
+    | [] -> ()
+    | (h :: tl) -> f h;
+                   iter f tl
 
-  (* TODO *)
-  let filter f lst = failwith "For you to implement"
+  let filter f lst =
+    let rec filter_ acc lst_ =
+      match lst_ with
+      | [] -> List.rev acc
+      | (h :: tl) -> if f h
+                     then filter_ (h :: acc) tl
+                     else filter_ acc tl
+    in filter_ [] lst
 
 end
 
@@ -101,16 +114,28 @@ let%test _ =
    val mem : 'a list -> equal:('a -> 'a -> bool) -> 'a -> bool
 *)
 
-let () = assert (List.mem ~equal:Int.equal [1;2;3] 3 = true)
+<<<<<<< HEAD
+let () = assert (List.mem ~equal:Int.equal [1;2;3] 3)
+=======
+let () = assert
+  (List.mem ~equal:Int.equal [1;2;3] 3) 
+>>>>>>> e777e1b9b8c50671e7c99d3f504fd51be962e08a
 
 (* List.sort returns a sorted list in increasing order according to the specified
    comparison function. The comparison function should return a negative number to
    indicate the first element is smaller, 0 to indicate they are equal, and a positive
    number to indicate the first element is larger.
 
-   val sort: cmp:('a -> 'a -> int) -> 'a list -> 'a list
+   val sort: compare:('a -> 'a -> int) -> 'a list -> 'a list
 *)
-let () = assert (List.sort ~cmp:(fun x y -> x - y) [3;1;2] = [1;2;3])
+<<<<<<< HEAD
+let () = assert ([%compare.equal : int list] (List.sort ~compare:(fun x y -> x - y) [3;1;2]) [1;2;3])
+=======
+let () = assert
+  ([%compare.equal: int list]
+     (List.sort ~compare:(fun x y -> x - y) [3;1;2])
+     [1;2;3])
+>>>>>>> e777e1b9b8c50671e7c99d3f504fd51be962e08a
 
 (*module My_list : sig
   val map : ('a -> 'b) -> 'a list -> 'b list
@@ -123,10 +148,10 @@ end = My_list*)
   let%test "Testing My_list.map..." =
     [%compare.equal: int list] [2; 4; 6; 8] (My_list.map (fun x -> 2 * x) [1; 2; 3; 4])
 
-  let%test "Testing My_list.iter..." = 
+  let%test "Testing My_list.iter..." =
     let acc = ref 0 in
     My_list.iter (fun x -> if x > !acc then acc := x) [1; 8; 5; 2; 7; 3];
      Int.(=) 8 !acc
 
   let%test "Testing My_list.filter..." =
-    [%compare.equal: int list] [8 ; 2] (My_list.filter (fun x -> x mod 2 = 0) [1; 3; 7; 8; 9; 2])
+    [%compare.equal: int list] [8 ; 2] (My_list.filter (fun x -> x % 2 = 0) [1; 3; 7; 8; 9; 2])

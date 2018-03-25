@@ -28,9 +28,11 @@ let () =
    in increasing order.
 
    val range : int -> int -> int list
-*)
-let range from to_ =
-  failwith "For you to implement"
+ *)
+let rec range from to_ =
+    match (from >= to_) with
+    | true  -> []
+    | false -> from :: (range (from + 1) to_)
 
 (* Here's a different way of getting the [equal] function for a type [t]:
 

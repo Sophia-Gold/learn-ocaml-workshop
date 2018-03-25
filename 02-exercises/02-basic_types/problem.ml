@@ -62,10 +62,10 @@ let float_four = 4.
 
    In Ocaml there's no explicit return statement: functions just return the
    value of the last statement in that function. *)
-let int_average x y = failwith "For you to implement"
+let int_average x y = (x + y) / 2
 
 (* val float_average : float -> float -> float *)
-let float_average x y = failwith "For you to implement"
+let float_average x y = (x +. y) /. 2.
 
 (* There will be more about functions later, but note that in OCaml, there are
    no parentheses when applying a function! So the following expression computes
@@ -145,8 +145,8 @@ let () =
    In words: [equal] takes two [int]s and returns a [bool]. The following line
    is applying that function to two inputs, [5] and [int_average 5 5]. *)
 
-let%test "Testing int_average..." =
-  Int.equal (int_average 5 5) 5
+(* let%test "Testing int_average..." =
+ *   Int.equal (int_average 5 5) 5 *)
 
 (* Modules can also contain operators. By convention, the equality operator is
    defined and equivalent to the [equal] function. To reference an operator in a
@@ -156,14 +156,14 @@ let%test "Testing int_average..." =
    Int.(=) is the same as Int.equal
 *)
 
-let%test "Testing int_average..." =
-  Int.(=) (int_average 50 100) 75
-
-let%test "Testing float_average..." =
-  Float.(=) (float_average 5. 5.) 5.
-
-let%test "Testing float_average..." =
-  Float.equal (float_average 5. 10.) 7.5
+(* let%test "Testing int_average..." =
+ *   Int.(=) (int_average 50 100) 75
+ * 
+ * let%test "Testing float_average..." =
+ *   Float.(=) (float_average 5. 5.) 5.
+ * 
+ * let%test "Testing float_average..." =
+ *   Float.equal (float_average 5. 10.) 7.5 *)
 
 (* .mli files
    ==========
